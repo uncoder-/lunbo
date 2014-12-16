@@ -64,7 +64,9 @@
 			},false);
 			this.container.children[0].addEventListener("touchend",function(event){
 				if(Math.abs(moveSize) > 20){
-					if(index == 0 && moveSize>0||index == (that.els.length-1)&&moveSize<0){
+					if(index == 0 && moveSize>0){
+						position = position;
+					}else if(index == (that.els.length-1)&&moveSize<0){
 						position = position;
 					}else{
 						var temp = (moveSize >= 0)?step:step*(-1)
@@ -73,7 +75,7 @@
 					that.container.children[0].style.transform = "translate3d("+(position)+"px,0px,0px)";
 					that.container.children[0].style.transition = "transform 500ms ease";
 				};
-				that.Timmer2=window.setTimeout(function(){that.autoPlay();},this.duration) ;
+				that.Timmer2=window.setTimeout(function(){that.autoPlay();},this.duration);
 			},false);
 		},
 		autoPlay:function(){
@@ -84,7 +86,8 @@
 			var position = parseFloat(this.getTranslate(this.container.children[0])[4]);
 			var index = Math.abs(position)/this.width;
 			//console.log(index);
-			if(index==this.els.length-1){
+			
+			if(index>=this.els.length-1){         //此处有一个bug，因为上面获取的position有小数
 				index=0;
 				position = 0; 
 			}else{
@@ -124,7 +127,7 @@
 		},
 		destroyTimmer:function(){
 			clearInterval(this.Timmer);
-			clearInterval(this.Timmer2);
+			clearTimeout(this.Timmer2);
 		},
 		getTranslate:function(_self){
 			var st = window.getComputedStyle(_self, null);
