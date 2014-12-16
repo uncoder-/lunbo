@@ -57,12 +57,12 @@ lunBo.prototype={
 				that.container.children[0].style.transform = "translate3d("+(position)+"px,0px,0px)";
 				that.container.children[0].style.transition = "transform 500ms ease";
 			};
-			that.Timmer2=window.setTimeout(function(){that.autoPlay();},3000) ;
+			that.Timmer2=window.setTimeout(function(){that.autoPlay();},this.duration) ;
 		},false);
 	},
 	autoPlay:function(){
 		var that =this;
-		this.Timmer =  window.setInterval(function(){that.next()},3000);
+		this.Timmer =  window.setInterval(function(){that.next()},this.duration);
 	},	
 	next:function() {
 		var position = parseFloat(this.getTranslate(this.container.children[0])[4]);
