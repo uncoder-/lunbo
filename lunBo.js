@@ -43,8 +43,18 @@
 				//this.els[i].children[0].style.maxWidth = this.width+"px";
 				//this.els[i].children[0].style.maxHeight = this.height+"px";
 			};
+
+			var indicator = document.createElement("div");
+				indicator.id = "indicator";
+			for (var i = 0; i < this.els.length; i++) {
+				var span = document.createElement("span");
+				indicator.appendChild(span);
+			};
+			indicator.children[0].className="selected";
+			this.container.appendChild(indicator);
+
 			this.onOff = true;
-			//this.autoPlay();
+			this.autoPlay();
 			this.addEvent();
 		},
 		addEvent:function (){
@@ -57,7 +67,6 @@
 				moveSize = 0;
 				step = that.width;
 				position = parseFloat(that.getTranslate(that.container.children[0])[4]);
-				console.log(position);
 			},false);
 			this.container.children[0].addEventListener("touchmove",function(event){
 				event.preventDefault();
@@ -76,6 +85,7 @@
 					}
 					that.container.children[0].style.transform = "translate3d("+(position)+"px,0px,0px)";
 					that.container.children[0].style.transition = "transform 200ms ease-in";
+					that.showIndicator(Math.abs(position)/that.width);
 				};
 				that.Timmer2=window.setTimeout(function(){that.autoPlay();},this.duration);
 			},false);
@@ -87,9 +97,11 @@
 			},this.duration);
 		},	
 		move:function() {
+			var a=0;
 			var position = parseFloat(this.getTranslate(this.container.children[0])[4]);
 			var index = Math.abs(position)/this.width;
-			//console.log(index);
+				a = index+1;
+			this.showIndicator(a);
 			if(index >= this.els.length-1){         
 				index = 0;
 				position = 0; 
@@ -144,6 +156,17 @@
 				that.onOff=true;
 			},200);
 			//this.Timmer2 = window.setTimeout(function(){that.autoPlay();},this.duration);
+		},
+		showIndicator:function(index){
+			var dots = this.container.children[1].children;
+			for (var i = 0; i < dots.length; i++) {
+				dots[i].className = "";
+			};
+			if(index == this.els.length){
+				dots[0].className = "selected";
+			}else{
+				dots[index].className = "selected";
+			}
 		},
 		destroyTimmer:function(){
 			clearInterval(this.Timmer);
