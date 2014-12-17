@@ -48,11 +48,7 @@
 		},
 		addEvent:function (){
 			var that = this;
-<<<<<<< HEAD
 			var start,moveSize,position,step,index,moveON;
-=======
-			var start,moveSize,position,step,index;
->>>>>>> FETCH_HEAD
 			this.container.children[0].addEventListener("touchstart",function(event){
 				that.destroyTimmer();
 				index = event.target.parentNode.dataset.index;
@@ -60,7 +56,6 @@
 				moveSize = 0;
 				step = that.width;
 				position = parseFloat(that.getTranslate(that.container.children[0])[4]);
-<<<<<<< HEAD
 				console.log(position);
 			},false);
 			this.container.children[0].addEventListener("touchmove",function(event){
@@ -69,16 +64,6 @@
 				that.container.children[0].style.transform = "translate3d("+(position+moveSize)+"px,0px,0px)";
 			},false);
 			this.container.children[0].addEventListener("touchend",function(event){
-
-=======
-			},false);
-			this.container.children[0].addEventListener("touchmove",function(event){
-				moveSize = event.changedTouches[0].pageX-start;
-				that.container.children[0].style.transform = "translate3d("+(position+moveSize)+"px,0px,0px)";
-				that.container.children[0].style.transition = "transform 500ms ease";
-			},false);
-			this.container.children[0].addEventListener("touchend",function(event){
->>>>>>> FETCH_HEAD
 				if(Math.abs(moveSize) > 20){
 					if(index == 0 && moveSize>0){
 						position = position;
@@ -89,36 +74,22 @@
 						position = position + temp;
 					}
 					that.container.children[0].style.transform = "translate3d("+(position)+"px,0px,0px)";
-<<<<<<< HEAD
 					that.container.children[0].style.transition = "transform 200ms ease-in";
-=======
-					that.container.children[0].style.transition = "transform 500ms ease";
->>>>>>> FETCH_HEAD
 				};
 				that.Timmer2=window.setTimeout(function(){that.autoPlay();},this.duration);
 			},false);
 		},
 		autoPlay:function(){
 			var that =this;
-<<<<<<< HEAD
 			this.Timmer =  window.setInterval(function(){
 				that.move();
-				//that.container.children[0].style.transition = "";
 			},this.duration);
-=======
-			this.Timmer =  window.setInterval(function(){that.move()},this.duration);
->>>>>>> FETCH_HEAD
 		},	
 		move:function() {
 			var position = parseFloat(this.getTranslate(this.container.children[0])[4]);
 			var index = Math.abs(position)/this.width;
 			//console.log(index);
-<<<<<<< HEAD
 			if(index>=this.els.length-1){         
-=======
-			
-			if(index>=this.els.length-1){         //此处有一个bug，因为上面获取的position有小数
->>>>>>> FETCH_HEAD
 				index=0;
 				position = 0; 
 			}else{
@@ -126,11 +97,7 @@
 			}
 			//console.log(position)
 			this.container.children[0].style.transform = "translate3d(-"+(position)+"px,0px,0px)";
-<<<<<<< HEAD
 			this.container.children[0].style.transition = "transform 200ms ease";
-=======
-			this.container.children[0].style.transition = "transform 500ms ease";
->>>>>>> FETCH_HEAD
 		},
 		next:function() {
 			var position = parseFloat(this.getTranslate(this.container.children[0])[4]);
@@ -156,15 +123,9 @@
 			}else{
 				position = (index-1)*this.width;
 			}
-<<<<<<< HEAD
-			//console.log(position);
-			this.container.children[0].style.transform = "translate3d(-"+(position)+"px,0px,0px)";
-			this.container.children[0].style.transition = "transform 200ms ease";
-=======
 			//console.log(position)
 			this.container.children[0].style.transform = "translate3d(-"+(position)+"px,0px,0px)";
 			this.container.children[0].style.transition = "transform 500ms ease";
->>>>>>> FETCH_HEAD
 		},
 		destroyTimmer:function(){
 			clearInterval(this.Timmer);
