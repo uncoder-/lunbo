@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width,height=device-height,initial-scale=1,maximum-scale=1,user-scalable=0">
+	<meta name="apple-mobile-web-app-title" content="uncoder">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+	<meta name="format-detection" content="telephone=no, address=no">
+	<title>响应式布局模板</title>
+	<style type="text/css">
+	*{
+		margin: 0;
+		padding: 0;
+		box-sizing:border-box;
+		-webkit-box-sizing : border-box;  
+		-webkit-user-drag: none;
+		-webkit-user-select: none;
+		-webkit-text-size-adjust:auto;
+		-webkit-tap-highlight-color: rgba(0,0,0,0);
+		-webkit-overflow-scrolling: touch;
+	}
+	html,body{
+		position: relative;
+		margin: auto;
+		height: 100%;
+		width: 100%;
+	}
+	#container{
+		height: 200px;
+		width: 200px;
+		border: 1px solid gray;
+		overflow: hidden;
+	}
+	footer{
+		position: fixed;
+		margin: auto;
+		width: 100%;
+		border: 1px solid red;
+		height: 20px;
+		bottom: 0;
+	}
+	#previous,#next{
+		display: none;	//隐藏功能，开启有bug，还没想解决，不想出现第三个定时器
+		border: 1px solid red;
+	}
+	</style>
+</head>
+<body>
+	<section id="main">
+		<div id="container">
+			<ul>
+				<li><img src="img/temp_img02.jpg" alt="no1" /></li>
+				<li><img src="img/temp_img03.jpg" alt="no2" /></li>
+				<li><img src="img/temp_img04.jpg" alt="no3" /></li>
+			</ul>
+		</div>
+	</section>
+	<div id="previous">上一个</div>
+	<div id="next">下一个</div>
+	<script src="lunBo.js"></script>
+	<script type="text/javascript">
+	var lb = new lunBo({selector:"#container",width:200,height:200,duration:3000});
+	document.querySelector("#next").addEventListener("touchstart",function(){
+		lb.next();
+	},false);
+	document.querySelector("#previous").addEventListener("touchstart",function(){
+		lb.previous();
+	},false);
+	</script>
+</body>
+</html>
