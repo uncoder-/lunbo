@@ -43,7 +43,8 @@
 				//this.els[i].children[0].style.maxWidth = this.width+"px";
 				//this.els[i].children[0].style.maxHeight = this.height+"px";
 			};
-			this.autoPlay();
+			this.onOff = true;
+			//this.autoPlay();
 			this.addEvent();
 		},
 		addEvent:function (){
@@ -89,8 +90,8 @@
 			var position = parseFloat(this.getTranslate(this.container.children[0])[4]);
 			var index = Math.abs(position)/this.width;
 			//console.log(index);
-			if(index>=this.els.length-1){         
-				index=0;
+			if(index >= this.els.length-1){         
+				index = 0;
 				position = 0; 
 			}else{
 				position = (index+1)*this.width;
@@ -100,32 +101,49 @@
 			this.container.children[0].style.transition = "transform 200ms ease";
 		},
 		next:function() {
-			var position = parseFloat(this.getTranslate(this.container.children[0])[4]);
-			var index = Math.abs(position)/this.width;
-			//console.log(index);
-			if(index==this.els.length-1){
-				index=0;
-				position = 0; 
-			}else{
-				position = (index+1)*this.width;
+			if(this.onOff){
+				this.jump("next");
 			}
-			//console.log(position)
-			this.container.children[0].style.transform = "translate3d(-"+(position)+"px,0px,0px)";
-			this.container.children[0].style.transition = "transform 500ms ease";
 		},
 		previous:function(){
+			if(this.onOff){
+				this.jump("previous");
+			}
+		},
+		jump:function(flag,index){
+			this.onOff=false;
+			var that = this;
+			this.destroyTimmer();
 			var position = parseFloat(this.getTranslate(this.container.children[0])[4]);
 			var index = Math.abs(position)/this.width;
-			//console.log(index);
-			if(index == 0){
-				index=this.els.length-1;
-				position = (index)*this.width; 
-			}else{
-				position = (index-1)*this.width;
+			switch (flag){
+				case "next":
+					if(index == this.els.length-1){
+						index = 0;
+						position = 0;
+					}else{
+						position = -(index+1)*this.width;
+					}
+					break;
+				case "previous":
+					if(index == 0){
+						index = this.els.length-1;
+						position = -(index)*this.width;
+					}else{
+						position = -(index-1)*this.width;
+					}
+					break;
+				case "index":
+					break;
+				default:
+					break;
 			}
-			//console.log(position)
-			this.container.children[0].style.transform = "translate3d(-"+(position)+"px,0px,0px)";
-			this.container.children[0].style.transition = "transform 500ms ease";
+			this.container.children[0].style.transform = "translate3d("+(position)+"px,0px,0px)";
+			this.container.children[0].style.transition = "transform 200ms ease";
+			window.setTimeout(function(){
+				that.onOff=true;
+			},200);
+			//this.Timmer2 = window.setTimeout(function(){that.autoPlay();},this.duration);
 		},
 		destroyTimmer:function(){
 			clearInterval(this.Timmer);
