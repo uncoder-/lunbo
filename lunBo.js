@@ -43,7 +43,6 @@ lunBo.prototype = {
           position = position;
           index = index -1;
         } else {
-          var temp = (moveSize >= 0) ? step : step * (-1);
           if(moveSize >= 0){
               position = position + step;
               index = index - 2;
