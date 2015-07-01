@@ -3,14 +3,13 @@ function lunBo(opts) {
     return new lunBo(opts);
   }
   this.selector = opts.selector;
-  this.height = opts.height;
-  this.width = opts.width;
   this.duration = opts.duration || 3000;
   this.init();
 }
 lunBo.prototype = {
   init: function() {
     this.container = document.querySelector(this.selector);
+    this.width = this.container.offsetHeight;
     this.container.children[0].style.transform = "translate3d(0px,0px,0px)";
     this.els = this.container.children[0].children;
     for (var i = 0; i < this.els.length; i++) {
@@ -95,6 +94,7 @@ lunBo.prototype = {
   },
   destroyTimmer: function() {
     clearInterval(this.Timmer);
+    clearTimeout(this.Timmer2);
   },
   getTranslate: function(_self) {
     var st = window.getComputedStyle(_self, null);
